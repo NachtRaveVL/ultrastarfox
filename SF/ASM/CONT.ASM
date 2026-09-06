@@ -69,8 +69,11 @@ briefing_l
 	a8
 	lda	#1
 	sta	dogyirq
-	stz	gameframe
-	stz	gameframe+1
+    stz gameframe
+    stz gameframe+1
+    stz logicframe
+    stz logicframe+1
+    stz logicframeacc
 
 	lda	defaulttrain
 	lbne	conttraining
@@ -206,8 +209,11 @@ conttraining
 	a8
 	lda	#1
 	sta	lives
-	stz	gameframe
-	stz	gameframe+1
+	stz gameframe
+    stz gameframe+1
+    stz logicframe
+    stz logicframe+1
+    stz logicframeacc
 .lp3	jsl	setblack_l
 	jsl	transfer_l
 	jsl	friends_messages_l

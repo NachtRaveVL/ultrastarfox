@@ -6500,7 +6500,7 @@ s_jmp_notdelay		MACRO		#delay(1-8),label,[offset]
 	stratmac_start
 MYNARG	=	NARG
 	CHK_NARG	2,3
-	lda	gameframe
+	lda	logicframe
 	IFEQ	NARG-3
 	clc
 	adc	\3
@@ -6514,7 +6514,7 @@ s_jmp_ifdelay		MACRO		#delay(1-8),label,[offset]
 	stratmac_start
 MYNARG	=	NARG
 	CHK_NARG	2,3
-	lda	gameframe
+	lda	logicframe
 	IFEQ	NARG-3
 	clc
 	adc	\3
@@ -6528,7 +6528,7 @@ s_jmp_ANDframe		MACRO	AND,label
 	stratmac_start
 MYNARG	=	NARG
 	CHK_NARG	2
-	lda	gameframe
+	lda	logicframe
 	and	\1
 	rlbeq	\2
 	stratmac_end
@@ -6538,7 +6538,7 @@ s_jmp_notANDframe		MACRO	AND,label
 	stratmac_start
 MYNARG	=	NARG
 	CHK_NARG	2
-	lda	gameframe
+	lda	logicframe
 	and	\1
 	rlbne	\2
 	stratmac_end

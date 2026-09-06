@@ -155,7 +155,13 @@ boss1in_init
 boss1in_strat
 	s_start_strat
 	s_set_objtobeplayer	y
-	s_add_alvar		W,x,al_worldz,#-15
+	a16
+	lda	#-15
+	jsl	framescaleA_l
+	clc
+	adc	al_worldz,x
+	sta	al_worldz,x
+	a8
 	s_jmp_Zdistmore		x,y,#1000,boss1_end
 
 ;------------------------------------------------------
@@ -164,7 +170,13 @@ boss1out_init
 boss1out_strat
 	s_start_strat
 	s_set_objtobeplayer	y
-	s_add_alvar		W,x,al_worldz,#15
+	a16
+	lda	#15
+	jsl	framescaleA_l
+	clc
+	adc	al_worldz,x
+	sta	al_worldz,x
+	a8
 	s_jmp_Zdistless		x,y,#1500,boss1_end
 	s_set_alsflag		x,sflag2
 	s_beqdec_alvar		B,x,al_sbyte3,boss1inclose_init
@@ -178,7 +190,13 @@ boss1inclose_init
 boss1inclose_strat
 	s_start_strat
 	s_set_objtobeplayer	y
-	s_add_alvar		W,x,al_worldz,#-25
+	a16
+	lda	#-25
+	jsl	framescaleA_l
+	clc
+	adc	al_worldz,x
+	sta	al_worldz,x
+	a8
 	s_jmp_Zdistmore		x,y,#300,boss1_end.nofire
 	s_jmp			boss1out_init
 
@@ -190,7 +208,13 @@ boss1back_strat
 	s_weapon_pos		#0,#0,#0
 	s_set_objtobeplayer	y
 	s_jmp_Zdistmore		x,y,#1500,.nzi
-	s_add_alvar		W,x,al_worldz,#15
+	a16
+	lda	#15
+	jsl	framescaleA_l
+	clc
+	adc	al_worldz,x
+	sta	al_worldz,x
+	a8
 	s_jmp			boss1_end
 .nzi
 	s_set_objtobechild	y,x,#1	

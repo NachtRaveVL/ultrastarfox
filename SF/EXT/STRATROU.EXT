@@ -17,6 +17,7 @@
 	global	addvecs_l
 	global	addvecs0_l
 	global	addalvecs_l
+	global	framescaleA_l
 	global	find_object_l
 	global	findtarget_l
 	global	find_Mobject_l

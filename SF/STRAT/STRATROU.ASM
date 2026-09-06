@@ -516,6 +516,16 @@ addvecs0_l
 
 ;*****************************************************************************
 addalvecs_l
+; Scale displacement, not velocity: signed al_v* * framer / 3.
+; framer is the complete transfer-to-transfer interval in video frames;
+; framerate is sampled before the transfer has finished.
+; Three video frames is the reference update interval (20 Hz on NTSC).
+; Preserve X, Y, DB and scratch; return a8i16 as before.
+	a8
+	lda	framer
+	beq	.nomove
+	cmp	#3
+	bne	.scaled
 	a16
 	lda	al_worldx,x
 	clc
@@ -533,6 +543,174 @@ addalvecs_l
 	sta	al_worldz,x
 	a8
 	rtl
+.nomove
+	rtl
+.scaled
+	a16
+	lda	x1
+	pha
+	lda	y1
+	pha
+	lda	tpa
+	pha
+	lda	tpx
+	pha
+	lda	framer
+	and	#$00ff
+	sta	tpx
+
+	lda	al_vx,x
+	jsr	addalvecs_scale
+	clc
+	adc	al_worldx,x
+	sta	al_worldx,x
+
+	lda	al_vy,x
+	jsr	addalvecs_scale
+	clc
+	adc	al_worldy,x
+	sta	al_worldy,x
+
+	lda	al_vz,x
+	jsr	addalvecs_scale
+	clc
+	adc	al_worldz,x
+	sta	al_worldz,x
+
+	pla
+	sta	tpx
+	pla
+	sta	tpa
+	pla
+	sta	y1
+	pla
+	sta	x1
+	a8
+	rtl
+
+; a16i16 -> a16i16: scale signed A by framer / 3.
+; Preserve X, Y, DB and the scratch words used by addalvecs_scale.
+framescaleA_l
+	a16
+	phy
+	tay
+	a8
+	lda	framer
+	beq	.zero
+	cmp	#3
+	beq	.reference
+	a16
+	lda	x1
+	pha
+	lda	y1
+	pha
+	lda	tpa
+	pha
+	lda	tpx
+	pha
+	lda	framer
+	and	#$00ff
+	sta	tpx
+	tya
+	jsr	addalvecs_scale
+	tay
+	pla
+	sta	tpx
+	pla
+	sta	tpa
+	pla
+	sta	y1
+	pla
+	sta	x1
+	tya
+	ply
+	rtl
+.zero
+	a16
+	lda	#0
+	ply
+	rtl
+.reference
+	a16
+	tya
+	ply
+	rtl
+
+; a16 -> a16: truncate signed A * unsigned tpx / 3 toward zero.
+; Form the full unsigned 24-bit magnitude before dividing, including -32768.
+; Divide in base 256 so neither multiply nor divide loses significant bits.
+; Only the final coordinate addition wraps to 16 bits, as in the original.
+addalvecs_scale
+	a16
+	cmp	#0
+	php
+	bpl	.positive
+	eor	#$ffff
+	inc	a
+.positive
+	sta	x1
+	a8
+	sta.l	wrmpya
+	lda	tpx
+	sta.l	wrmpyb
+	nop
+	nop
+	nop
+	nop
+	a16
+	lda.l	rdmpylr
+	sta	y1
+	a8
+	lda	x1+1
+	sta.l	wrmpya
+	lda	tpx
+	sta.l	wrmpyb
+	a16
+	lda	y1
+	xba
+	and	#$00ff
+	sta	tpa
+	lda.l	rdmpylr
+	clc
+	adc	tpa
+	sta.l	wrdivl
+	a8
+	lda	#3
+	sta.l	wrdivb
+	a16
+	lda	y1
+	and	#$00ff
+	sta	x1
+	nop
+	lda.l	rddivlr
+	xba
+	and	#$ff00
+	sta	tpa
+	lda.l	rdmpylr
+	xba
+	ora	x1
+	sta.l	wrdivl
+	a8
+	lda	#3
+	sta.l	wrdivb
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	a16
+	lda.l	rddivlr
+	clc
+	adc	tpa
+	plp
+	bpl	.positive_result
+	eor	#$ffff
+	inc	a
+.positive_result
+	rts
 
 
 ;*****************************************************************************
@@ -2930,6 +3108,7 @@ sr_keeprelto_playerX
 	lda	playervelZ
 	sec
 	sbc	pviewvelz
+	jsl	framescaleA_l
 	clc
 	adc	al_worldz,x
 	sta	al_worldz,x
@@ -2941,6 +3120,7 @@ sr_keeprelto_playerY
 	lda	playervelZ
 	sec
 	sbc	pviewvelz
+	jsl	framescaleA_l
 	clc
 	adc.w	al_worldz,y
 	sta.w	al_worldz,y
@@ -3088,12 +3268,24 @@ setobjtobechildxy_srou
 	ply
 	rtl
 
-
 sr_addplayerZx
-	s_add_alvar		W,x,al_worldz,pviewvelz
+	a16
+	lda	pviewvelz
+	jsl	framescaleA_l
+	clc
+	adc	al_worldz,x
+	sta	al_worldz,x
+	a8
 	rtl
+
 sr_addplayerZy
-	s_add_alvar		W,y,al_worldz,pviewvelz
+	a16
+	lda	pviewvelz
+	jsl	framescaleA_l
+	clc
+	adc.w	al_worldz,y
+	sta.w	al_worldz,y
+	a8
 	rtl
 
 

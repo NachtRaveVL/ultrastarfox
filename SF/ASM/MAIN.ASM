@@ -115,6 +115,9 @@ initgame_l ; Initialize game
 	stz	msg_count2 ; store 0 at msg_count2 var
 	stz	restartcol ; store 0 at restartcol var
 	stz	onecredspr ; store 0 at onecredspr var
+	stz	logicframe
+	stz	logicframe+1
+	stz	logicframeacc
 	stz	doneacircle ; store 0 at doneacircle var
 	stz	windowmode ; store 0 at windowmode var
 	stz	nosetport3 ; store 0 at nosetport3 var

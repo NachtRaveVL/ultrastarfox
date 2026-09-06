@@ -1638,17 +1638,38 @@ viewmove_srou
 .novc
 
 
-	s_add_var		W,pviewposz,pviewvelz
+; Keep the camera lag in reference-step units, not last update's distance.
+; player_posz is the pre-movement snapshot from init_strats_l.
+	a16
+	lda	al_worldz,x
+	sec
+	sbc	al_vz,x
+	sta	pviewanchorz
+
+; Follow the player's actual displacement, including integer rounding.
+; Scale only the camera's velocity relative to the player.
+	lda	pviewvelz
+	sec
+	sbc	al_vz,x
+	jsl	framescaleA_l
+	clc
+	adc	al_worldz,x
+	sec
+	sbc	player_posz
+	clc
+	adc	pviewposz
+	sta	pviewposz
+	a8
 	s_Fchase_var2alvar	W,x,pviewvelz,al_vz,1
 
 
 	a16
 	lda	pviewposz
 	sec
-	sbc	player_posz
+	sbc	pviewanchorz
 	range	-200,50
 	clc
-	adc	player_posz
+	adc	pviewanchorz
 	sta	pviewposz
 
 
@@ -1657,7 +1678,7 @@ viewmove_srou
 
 	s_jmp_alvarmore		B,x,al_sbyte2,#10,.normspd
 	s_set_var		B,player_tospeed,player_medspeed
-	s_achase_var		W,pviewposz,player_posz,3
+	s_achase_var		W,pviewposz,pviewanchorz,3
 
 .normspd
 	s_speedto		x,player_tospeed,2
@@ -3366,7 +3387,6 @@ playercoll_Istrat
 do_player_limitX
 	jsr		playermove_srou
 	s_gen_3dvecs	x,al_roty,al_rotx,al_vel
-	jsr		framescalevecs
     	s_add_vecs2pos	x
 	jsr		playerlimitX_srou
 	jsr		playerfire_srou
@@ -3390,7 +3410,6 @@ do_player_Yvel125
 	adc	tpa
 	sta	al_vy,x
 	a8
-	jsr		framescalevecs
     	s_add_vecs2pos	x
 	jsr		playerlimitX_srou
 	jsr		playerfire_srou
@@ -3400,7 +3419,6 @@ do_player_Yvel125
 do_player
 	jsr		playermove_srou
 	s_gen_3dvecs	x,al_roty,al_rotx,al_vel
-	jsr		framescalevecs
 	s_add_vecs2pos	x
 	jsr		playerfire_srou
 	jsr		checkarrows_srou
@@ -3421,7 +3439,6 @@ do_playerYvelD2
 	adiv2
 	sta	al_vy,x
 	a8
-	jsr		framescalevecs
 	s_add_vecs2pos	x
 	jsr		playerlimitX_srou
 	jsr		playerfire_srou
@@ -3442,7 +3459,6 @@ do_playerYvel_colony
 	adiv2
 	sta	al_vy,x
 	a8
-	jsr		framescalevecs
 	s_add_vecs2pos	x
 
 	jsr	playerlimitx_srou
@@ -3473,7 +3489,6 @@ do_player_bridge
 	a8
 
 
-	jsr		framescalevecs
     	s_add_vecs2pos	x
 	jsr		playerlimitX_srou
 	jsr		playerfire_srou

@@ -2041,7 +2041,18 @@ Pelaser_strat
 	
 	s_add_vecs2pos		x
 
-	s_decbne_lifecnt	x,.lnd
+; Lifetime is in video frames, matching movement's framer / 3 scale.
+; Saturate at zero: a long update must not wrap the byte counter.
+	a8
+	lda	framer
+	cmp	al_count,x
+	bcs	.expired
+	lda	al_count,x
+	sec
+	sbc	framer
+	sta	al_count,x
+	s_brl			.lnd
+.expired
 	s_remove_obj		x
 	dec			numplasers
 	s_end_strat
@@ -2348,7 +2359,7 @@ fire_Elaser	; player's laser.
 	s_set_aldata		y,#1,#elaserAP
 	s_set_alptrs		y,Pelaser_Istrat,pelasercollide_Istrat,pelaser2die_Istrat
 	s_set_speed		y,#66
-	s_set_lifecnt		y,#10
+	s_set_lifecnt		y,#10*3
 	s_set_colltype		y,laser
 	s_set_colltype		y,friend
 	jsr			gen_weapon
@@ -2363,7 +2374,7 @@ fire_playerbeam	; player's laser.
 	s_set_aldata		y,#1,#playerbeamAP
 	s_set_alptrs		y,pbeam_Istrat,pelasercollide_Istrat,playerbeamdie_Istrat
 	s_set_speed		y,#66		40
-	s_set_lifecnt		y,#10		18
+	s_set_lifecnt		y,#10*3		18
 	s_set_colltype		y,laser
 	s_set_colltype		y,friend
 	jsr			gen_weapon

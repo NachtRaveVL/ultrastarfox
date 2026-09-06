@@ -315,7 +315,18 @@ transswap
 
 ;-----------------------------------------------------------------------
 dostrats
+	a8i16
  	incw	gameframe
+
+	lda     logicframeacc
+    clc
+    adc     #logicframestep
+    sta     logicframeacc
+    bcc     .nologictick
+
+    incw    logicframe
+
+.nologictick
 
 	phb
 	lda	#$7e

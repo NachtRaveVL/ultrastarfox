@@ -339,7 +339,9 @@ endseq_l	php
 	stz	circleanim
 
 	a8i16
-	stz	gameframe
+	stz gameframe
+    stz logicframe
+    stz logicframeacc
 	lda	#1+8
 	sta	bgmode
 	lda	#1+2+4
@@ -447,10 +449,20 @@ endtrans	a8i16
 	rts
 
 
-dostratlist	php
+dostratlist
+	php
 	a8i16
 	incw	gameframe
 
+	lda     logicframeacc
+    clc
+    adc     #logicframestep
+    sta     logicframeacc
+    bcc     .nologictick
+
+    incw    logicframe
+
+.nologictick
 
 	phb
 	lda	#07eh
@@ -1665,7 +1677,9 @@ titleredo	a8i16
 	lda	#0
 	sta.l	m_meters
 	sta	exitintro
-	stz	gameframe
+	stz gameframe
+    stz logicframe
+    stz logicframeacc
 
 	a16
 	lda	#880
@@ -1761,7 +1775,9 @@ intro_l
 	sta.l	m_meters
 	sta	exitintro
 	sta.l	oncewipe
-	stz	gameframe
+	stz gameframe
+    stz logicframe
+    stz logicframeacc
 
 .lp3	jsl	setblack_l
 	jsl	transfer_l

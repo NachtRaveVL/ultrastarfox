@@ -767,12 +767,12 @@ cont_macro		MACRO
 ;-----------------------------------------------------------------------------
 ; MISC.
 
-player_hitflashfrms	equ	7
-specialdelayfrms	equ	50
-player_firespeed	equ	2
-screenflashbodyfrms	equ	4
+player_hitflashfrms	equ	9
+specialdelayfrms	equ	64
+player_firespeed	equ	3
+screenflashbodyfrms	equ	5
 screenflashbodytype	equ	0
-screenflashwingfrms	equ	2
+screenflashwingfrms	equ	3
 screenflashwingtype	equ	1
 
 crosshairdist		equ	500
@@ -795,7 +795,7 @@ pshipnum_tunnel	equ	4
 pshipnum_black		equ	5
 pshipnum_zoom		equ	6
 
-framesperAP	equ	10
+framesperAP	equ	13
 sghtoff	equ	0
 
 

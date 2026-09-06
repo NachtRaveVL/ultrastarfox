@@ -34,7 +34,7 @@ numlives	equ	3
 
 ; Input window for barrel rolls (in frames). (stock = 3)
 ; Doubled if 21Mhz GSU is on. If you don't want that, just remove the multiply from the equate.
-barrelrolldelay	equ	3*(fast+1)
+barrelrolldelay	equ	8
 
 ; Enables a timer. when the defined time runs out, the game returns to the controls screen.
 ; [0 = off, 1 = on]

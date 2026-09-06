@@ -258,6 +258,8 @@ xlen	=	22*1024+450
 	zalc	numdrawn,1
 	zalc	numinrange,1
 	alc	gameframe,2
+	alc	logicframe,2
+	alc	logicframeacc,1
 	alc	colframe,1
 	alc	animframe,1
 	zalc	framenum,1

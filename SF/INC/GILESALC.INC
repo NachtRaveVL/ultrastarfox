@@ -177,6 +177,7 @@ kf_LRkeydown	equ	2
 	alc	pviewposx,2
 	alc	pviewposy,2
 	alc	pviewposz,2
+	alc	pviewanchorz,2	; reference-step camera target, rebuilt by viewmove_srou
 	alc	bgsscrollZ,2
 	alc	pviewposzoff,2
 	alc	player_rolldelay,1

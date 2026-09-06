@@ -2879,6 +2879,7 @@ path_istrat
 	s_make_obj		#nullshape,.notrail
 	s_copy_rots		y,x
 	s_copy_pos		y,x
+	s_copy_var2alvar	W,y,al_sword1,viewposz ; previous camera Z for this trail
 	s_copy_alvar2alvar	W,y,al_coltab,x,al_coltab ; text string
 	s_copy_alvar2alvar	B,y,al_tx,x,al_tx	; text size
 	s_copy_alvar2alvar	B,y,al_depthoffset,x,al_ty ; colour
@@ -2936,7 +2937,19 @@ trail_istrat
 	s_beq		.nodo
 	s_dec_alvar	B,x,al_depthoffset
 .nodo
-.move	s_add_playerz	x
+.move
+; Keep the trail at its captured camera-relative depth.
+; al_sword1 holds this trail's previous camera Z.
+	a16
+	lda	viewposz
+	sec
+	sbc	al_sword1,x
+	clc
+	adc	al_worldz,x
+	sta	al_worldz,x
+	lda	viewposz
+	sta	al_sword1,x
+	a8
 	s_beqdec_alvar	B,x,al_sbyte1,.removeit
 .end	s_end_strat
 .removeit	s_remove_obj	x
