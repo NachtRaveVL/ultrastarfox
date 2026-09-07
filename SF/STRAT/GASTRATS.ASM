@@ -428,16 +428,27 @@ ship3a_strat
 	; The exterior-to-tunnel swap must not occur while X/Y are still settling.
 	s_achase_alvar.w	W,y,al_worldy,#space_viewCY,3
 	s_achase_alvar.w	W,y,al_worldx,#0,4
-	s_jmp_alvarmore	W,y,al_worldx,#64,ship3_cont
-	s_jmp_alvarless	W,y,al_worldx,#-64,ship3_cont
-	s_jmp_alvarmore	W,y,al_worldy,#space_viewCY+64,ship3_cont
-	s_jmp_alvarless	W,y,al_worldy,#space_viewCY-64,ship3_cont
+	a16
+	lda	al_worldx,y
+	cmp	#64
+	bpl	.ship3_wait
+	cmp	#-64
+	bmi	.ship3_wait
+	lda	al_worldy,y
+	cmp	#space_viewCY+64
+	bpl	.ship3_wait
+	cmp	#space_viewCY-64
+	bmi	.ship3_wait
+	a8
 	s_set_alsflag		x,colldisable
 	s_and_var		B,pshipflags,#~psf_noctrl
 	s_or_var		B,gameflags,#gf_stratdone1
 	set_sound2		x,#0
 	s_set_strat		x,ship3b_strat
 	s_brl			ship3b_strat
+.ship3_wait
+	a8
+	bra		ship3_cont
 
 ship3_cont
 	s_jmp_varAND	B,pshipflags2,#psf2_playerHP0,ship3c_init
