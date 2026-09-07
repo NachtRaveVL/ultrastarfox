@@ -424,6 +424,14 @@ ship3a_strat
 
 	s_set_objtobeplayer	y
 	s_jmp_Zdistmore		x,y,#600,ship3_cont
+	; Complete the final follow step before handing control to the map.
+	; The exterior-to-tunnel swap must not occur while X/Y are still settling.
+	s_achase_alvar.w	W,y,al_worldy,#space_viewCY,3
+	s_achase_alvar.w	W,y,al_worldx,#0,4
+	s_jmp_alvarmore	W,y,al_worldx,#64,ship3_cont
+	s_jmp_alvarless	W,y,al_worldx,#-64,ship3_cont
+	s_jmp_alvarmore	W,y,al_worldy,#space_viewCY+64,ship3_cont
+	s_jmp_alvarless	W,y,al_worldy,#space_viewCY-64,ship3_cont
 	s_set_alsflag		x,colldisable
 	s_and_var		B,pshipflags,#~psf_noctrl
 	s_or_var		B,gameflags,#gf_stratdone1
