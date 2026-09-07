@@ -1077,7 +1077,7 @@ irqbit2	i16
 	lsr	a
 	lsr	a
 	sta	m_scbr
-	IFEQ	PAL+_30fps
+	IFEQ	PAL+fast
 	jsr	startmus
 	rtl
 	ELSEIF

@@ -48,9 +48,10 @@ FASTROM		equ 0
 fast		equ 1
 
 ; Legacy gameplay timing compensation for overclocked GSU-1/2.
-; 199/256 ~= 21.4 / 27.5 MHz.
+; X/256 ~= 21.4 / 26~28 MHz.
 ; Keeps logic timing near the stock 21.4 MHz rate while allowing faster rendering.
-logicframestep  equ 199
+; Lower value = slower enemies (due to higher FPS)
+logicframestep  equ 190
 
 ; Enable/disable Super FX instruction cache [0 = off, 1 = on]
 ; you should have no good reason to ever switch this off, as it makes performance much, much worse.
