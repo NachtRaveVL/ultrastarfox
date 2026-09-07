@@ -381,6 +381,8 @@ ship3_Istrat	; last big ship
 	s_set_alvar	B,x,al_roty,#deg180+deg11
 	s_set_colltype	x,enemy1
 	s_set_alvar		W,x,al_vy,#-40
+	s_set_alvar		B,x,al_sbyte1,#0	; video-frame phase, 0..2
+	s_set_alvar		W,x,al_sword1,#0	; upward displacement remainder, 0..2
 	s_set_altype	x,gnd
 	s_set_alsflag		x,colldisable
 	s_set_alvar		B,x,al_rotz,#deg90
@@ -389,12 +391,7 @@ ship3_strat
 	s_start_strat
 	s_set_objtobeplayer	y
 
-	s_achase_alvar		B,x,al_rotz,#0,6
-	s_achase_alvar		B,x,al_roty,#deg180,6
-
 	s_jmp_lower		x,#space_viewCY+800,.nsu
-	s_jmp_alvarZero		W,x,al_vy,.nfire
-	s_inc_alvar		W,x,al_vy
 	s_brl			.nfire
 .nsu
 
@@ -480,8 +477,14 @@ ship3_cont
 ship3b_strat
 	s_start_strat
 
+	jsr	ship3_move_srou
 
 	a16
+	; Y was integrated by ship3_move_srou. Keep the existing X/Z update
+	; without applying Y a second time, and retain the nominal velocity.
+	lda	al_vy,x
+	pha
+	stz	al_vy,x
 	lda		pviewvelz
 	nega
 	sta		al_vz,x
@@ -489,6 +492,10 @@ ship3b_strat
 
 	s_add_vecs2pos	x
 	s_add_playerZ	x
+	a16
+	pla
+	sta	al_vy,x
+	a8
 	s_end_strat
 
 
@@ -500,6 +507,74 @@ ship3c_strat
 	s_add_playerZ	x
 	s_end_strat
 
+
+; Advance the carrier's original rise/braking/rotation in reference steps.
+; One reference step spans three video frames. Split its Y displacement
+; across those frames, retaining thirds rather than dropping them.
+; The old per-update vy increment stopped the rise hundreds of units low
+; at faster frame rates. At three-frame intervals this follows the original
+; Y trajectory; at shorter intervals it interpolates the same trajectory.
+; Private ship3 state: al_sbyte1 = phase, al_sword1 = division remainder.
+; This approach only uses vy in [-40,0]; ship3c has its own movement path.
+ship3_move_srou
+	phy
+	a16
+	lda	framer
+	and	#$00ff
+	tay
+	a8
+	bne	.frame
+	ply
+	rts
+.frame
+	lda	al_sbyte1,x
+	bne	.move
+	s_achase_alvar		B,x,al_rotz,#0,6
+	s_achase_alvar		B,x,al_roty,#deg180,6
+	a16
+	lda	al_worldy,x
+	cmp	#space_viewCY+800
+	bpl	.noacc
+	lda	al_vy,x
+	beq	.noacc
+	inc	al_vy,x
+.noacc
+	a8
+.move
+	a16
+	lda	al_vy,x
+	nega
+	clc
+	adc	al_sword1,x
+	phy
+	ldy	#0
+.divide
+	cmp	#3
+	bcc	.divided
+	sbc	#3
+	iny
+	bra	.divide
+.divided
+	sta	al_sword1,x
+	tya
+	nega
+	clc
+	adc	al_worldy,x
+	sta	al_worldy,x
+	ply
+	a8
+	inc	al_sbyte1,x
+	lda	al_sbyte1,x
+	cmp	#3
+	bne	.nextframe
+	stz	al_sbyte1,x
+.nextframe
+	dey
+	beq	.done
+	brl	.frame
+.done
+	ply
+	rts
 
 
 ;*****************************************************************************

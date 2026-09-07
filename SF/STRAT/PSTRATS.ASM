@@ -644,13 +644,29 @@ playerstraight_strat
 	s_set_speed		x,#medpspeed
 
 	s_gen_3dvecs		x,al_roty,al_rotx,al_vel
+	; Save this call's starting Z; do not use a full reference-step camera
+	; velocity while addalvecs_l is applying a shorter elapsed interval.
+	a16
+	lda	al_worldz,x
+	pha
+	a8
 	s_add_vecs2pos		x
 
 	s_set_alvar	W,x,al_worldx,#0
 	s_set_alvar	W,x,al_worldy,viewcy
 	s_set_var	W,pviewposx,#0
 	s_set_var	W,pviewposy,viewcy
-          	s_add_var	W,pviewposz,pviewvelz
+	; Advance the camera by exactly the same displacement as the player,
+	; preserving their existing separation, including 16-bit Z wrap.
+	a16
+	pla
+	nega
+	clc
+	adc	al_worldz,x
+	clc
+	adc	pviewposz
+	sta	pviewposz
+	a8
 	s_end_strat
 
 ;*****************************************************************************
