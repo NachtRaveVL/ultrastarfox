@@ -18,12 +18,13 @@ Go [here](#building) to jump straight to the building instructions.
 - **Repzilon** - Misc. documentation
 - **SegaRetro92** - Texture/Palette Docs, General Graphics Stuff, Author of Several Graphics Tools, German Version GFX/Text Restoration
 - **Sunlit** - Maintainer, Documentation, Toolchain Engineer, Rumble System Programmer ("Flat Rate" Rumble), Rumble Effect Programmer, Tool Author, German Version GFX/Text Restoration, Release Builder Script, MSU-1 programming
+- **Nachtrave** - Optimizations
 
 ## Features
 
 ## Cartridge Hardware Support and ROM Configuration
 
-- Intended for real **GSU-1/GSU-2 Super FX hardware overclocked to approximately 26–28 MHz** using the NR-RetroWorks overclocking chip
+- Intended for real **GSU-1/GSU-2 Super FX hardware overclocked to approximately 26–28 MHz** using the NR-RetroWorks overclocking adapter PCB
 - Super FX clock divider disabled via `fast equ 1`
 - Super FX MS1 high-speed multiply enabled
 - FastROM support (Not recommended) (Do not enable if you are targeting a real cartridge with a real MARIO/GSU-1/GSU-2 IC chip!)
@@ -126,8 +127,7 @@ All changes to be submitted should be made to the [main](https://github.com/Nach
 
 ## TODO
 
-1. Optimize game where possible (with the 26–28 MHz Super FX overclock target, can we go any further?)
-2. Annotate and document code (not so sure about doing this anymore)
+1. Annotate and document code (not so sure about doing this anymore)
 
 ## Project Structure
 
