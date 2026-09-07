@@ -299,6 +299,16 @@ n3dvecs_l
 	stz	x1+1
 	stz	y1+1
 	stz	z1+1
+	a8
+	lda	tmpz
+	bne	.nonzero3d
+	a16
+	stz	x1
+	stz	y1
+	stz	z1
+	a8
+	rtl
+.nonzero3d
 	stx	tmpx
 	sty	tmpy
 	
@@ -358,8 +368,6 @@ n3dvecs_l
 	ldy	tmpy
 	plb
 	rtl
-
-
 
 ;*****************************************************************************
 
@@ -2426,11 +2434,30 @@ Do_strat_l
 	bne	.dostr
 	a8
 .ns
-	lda	al_stratptr+2,x 
-	sta	tjmp+2
 	a16
 	lda	al_stratptr,x
 	beq	.strad
+	sta	tjmp
+
+	; Common case: dispatch the normal strategy directly.  The old path
+	; copied the same 24-bit pointer through tjmp, then loaded it again.
+	a8
+	lda	#(.estrat>>16)&255
+	pha
+	a16
+	lda	#(.estrat-1)&WM
+	pha
+	a8
+	lda	al_stratptr+2,x
+	pha
+	a16
+	lda	tjmp
+	dec	a
+	pha
+	a16
+	stz	svar_dist
+	a8
+	rtl
 		
 .dostr
 
