@@ -72,13 +72,30 @@ scale_a	MACRO
 	beq	.noscale\@
 	sty	scalecnt
 	tay
-;	sta	scalecnt
 	lda	x1
-.keepscaling\@
-	asl	a
-	dey
-;	dec	scalecnt
-	bne	.keepscaling\@
+	cpy	#1
+	beq	.s1\@
+	cpy	#2
+	beq	.s2\@
+	cpy	#3
+	beq	.s3\@
+	cpy	#4
+	beq	.s4\@
+	cpy	#5
+	beq	.s5\@
+	cpy	#6
+	beq	.s6\@
+	cpy	#7
+	beq	.s7\@
+	ldy	scalecnt
+	bra	.scaled\@
+.s7\@	asl	a
+.s6\@	asl	a
+.s5\@	asl	a
+.s4\@	asl	a
+.s3\@	asl	a
+.s2\@	asl	a
+.s1\@	asl	a
 	ldy	scalecnt
 	bra	.scaled\@
 .noscale\@

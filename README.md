@@ -1,26 +1,31 @@
 # UltraStarFox
 
-Star Fox / Starwing source code, modified for ease-of-use and ROMhacking.  
+Star Fox / Starwing source code, modified for ease-of-use and ROMhacking.
 
-Go [here](#building) to jump straight to the building instructions.  
+> **NR-RetroWorks fork notice:** This repository is a fork of the original [UltraStarFox project](https://github.com/Sunlitspace542/ultrastarfox), maintained by NachtRaveVL for use with the **26–28 MHz Super FX overclocking chip** sold through [NR-RetroWorks on Etsy](https://www.etsy.com/shop/NachtRaveRetroWerks). This fork is intended for real Star Fox / Starwing cartridge builds using that overclocking hardware, while the upstream repository remains the general-purpose source project.
+>
+> The **26–28 MHz operating frequency is provided by the physical overclocking hardware**. The ROM configuration keeps the GSU clock divider disabled and enables Super FX fast multiplication mode (MS1) through `fast equ 1`.
+
+Go [here](#building) to jump straight to the building instructions.
 
 ## Credits (A-Z)
 
 - **H A M G E R** - Wireframe shield meter color changing Super FX code
-- **Kandowontu** - The Original Star Fox Guy, Lifesaver, Rumble System Programmer (Sequences), Rumble Effect Programmer/Polishing, Implemented several features (Mouse, Debug Mode/Crash Handler Restoration, Limit Removals, Easy Wireframes, other fixes and improvements)  
-- **MrL314** - Texture Limit Removal Super FX Code  
-- **Phonymike** - Tools (mugconv, fontconv), ROM Header  
-- **Randal Linden** - Rumble Pad Designer, Rumble Pad Docs, Rumble System Programmer (Rumble Pad NMI Code)  
+- **Kandowontu** - The Original Star Fox Guy, Lifesaver, Rumble System Programmer (Sequences), Rumble Effect Programmer/Polishing, Implemented several features (Mouse, Debug Mode/Crash Handler Restoration, Limit Removals, Easy Wireframes, other fixes and improvements)
+- **MrL314** - Texture Limit Removal Super FX Code
+- **Phonymike** - Tools (mugconv, fontconv), ROM Header
+- **Randal Linden** - Rumble Pad Designer, Rumble Pad Docs, Rumble System Programmer (Rumble Pad NMI Code)
 - **Repzilon** - Misc. documentation
-- **SegaRetro92** - Texture/Palette Docs, General Graphics Stuff, Author of Several Graphics Tools, German Version GFX/Text Restoration   
-- **Sunlit** - Maintainer, Documentation, Toolchain Engineer, Rumble System Programmer ("Flat Rate" Rumble), Rumble Effect Programmer, Tool Author, German Version GFX/Text Restoration, Release Builder Script, MSU-1 programming  
+- **SegaRetro92** - Texture/Palette Docs, General Graphics Stuff, Author of Several Graphics Tools, German Version GFX/Text Restoration
+- **Sunlit** - Maintainer, Documentation, Toolchain Engineer, Rumble System Programmer ("Flat Rate" Rumble), Rumble Effect Programmer, Tool Author, German Version GFX/Text Restoration, Release Builder Script, MSU-1 programming
 
 ## Features
 
 ## Cartridge Hardware Support and ROM Configuration
 
-- Uses GSU-2/Super FX 2 @21.4Mhz instead of MARIO Chip 1 @10.7Mhz
-- Super FX MS1 high-speed multiply enabled (if 21mhz is enabled)
+- Intended for real **GSU-1/GSU-2 Super FX hardware overclocked to approximately 26–28 MHz** using the NR-RetroWorks overclocking chip
+- Super FX clock divider disabled via `fast equ 1`
+- Super FX MS1 high-speed multiply enabled
 - FastROM support (Not recommended) (Do not enable if you are targeting a real cartridge with a real MARIO/GSU-1/GSU-2 IC chip!)
 - MSU-1 support
 
@@ -58,51 +63,53 @@ Go [here](#building) to jump straight to the building instructions.
 
 Requirements: Microsoft Windows
 
-Download repo as ZIP and extract somewhere, or clone the repo with git via the command line.  
+Download repo as ZIP and extract somewhere, or clone the repo with git via the command line.
 
-To build ROM, run ``build.cmd``.  
+To build ROM, run ``build.cmd``.
 
-To build ROM with Logging, run ``build to log.cmd``.  
+To build ROM with Logging, run ``build to log.cmd``.
 
-To clean, run ``clean.cmd``.  
+To clean, run ``clean.cmd``.
 
-After building, a debug symbol map will be created at ``SYMBOLS.TXT``, and a bank space report at ``BANKS.CSV``.  
+After building, a debug symbol map will be created at ``SYMBOLS.TXT``, and a bank space report at ``BANKS.CSV``.
 
 ## Building on Linux
 
-**NOTE: this was tested on Ubuntu, on both real hardware and with the Windows Subsystem for Linux. YMMV.**  
+**NOTE: this was tested on Ubuntu, on both real hardware and with the Windows Subsystem for Linux. YMMV.**
 
-Requirements: Ubuntu (might work with other distros) snap, DOSBox-X, git  
+Requirements: Ubuntu (might work with other distros) snap, DOSBox-X, git
 
-Install snapstore: ``sudo apt install snapd``  
+Install snapstore: ``sudo apt install snapd``
 
-Install DOSBox-X from snap: ``sudo snap install dosbox-x``  
+Install DOSBox-X from snap: ``sudo snap install dosbox-x``
 
-Clone repository: ``git clone https://github.com/Sunlitspace542/ultrastarfox``  
+Clone repository: ``git clone https://github.com/NachtRaveVL/ultrastarfox``
 
-To build ROM, run ``make``.  
+To build ROM, run ``make``.
 
-To build ROM with logging, run ``make log``.  
+To build ROM with logging, run ``make log``.
 
-To clean, run ``make clean``.  
+To clean, run ``make clean``.
 
-After building, a debug symbol map will be created at ``SYMBOLS.TXT``, and a bank space report at ``BANKS.CSV``.  
+After building, a debug symbol map will be created at ``SYMBOLS.TXT``, and a bank space report at ``BANKS.CSV``.
 
 ## Uploading ROM to SNES over USB with SD2SNES/FXPak(Pro)
 
-Uses [USB2SNES-cli](https://github.com/Hyphen-ated/usb2snes-cli) fork by Hyphen-ated. A prebuilt windows EXE is provided.  
-Download [QUSB2SNES](https://github.com/Skarsnik/QUsb2snes/releases).  
-Extract it somewhere and run it. Set it up for an SD2SNES/FXPak Pro.  
-**QUSB2SNES must be running in the background for uploading to function.**  
-You can then run ``send2snes.cmd`` or ``build and send to snes.cmd`` to either upload the current ROM to the SNES or rebuild and upload the freshly built ROM.  
+Uses [USB2SNES-cli](https://github.com/Hyphen-ated/usb2snes-cli) fork by Hyphen-ated. A prebuilt windows EXE is provided.
+Download [QUSB2SNES](https://github.com/Skarsnik/QUsb2snes/releases).
+Extract it somewhere and run it. Set it up for an SD2SNES/FXPak Pro.
+**QUSB2SNES must be running in the background for uploading to function.**
+You can then run ``send2snes.cmd`` or ``build and send to snes.cmd`` to either upload the current ROM to the SNES or rebuild and upload the freshly built ROM.
 
 ## Contributing
 
-PRs are welcome!  
-All changes to be submitted should be made to the [main](https://github.com/Sunlitspace542/ultrastarfox/tree/main) branch.  
+PRs are welcome!
+All changes to be submitted should be made to the [main](https://github.com/NachtRaveVL/ultrastarfox/tree/main) branch.
 
 ## Helpful Links/Tools
 
+[NR-RetroWorks on Etsy](https://www.etsy.com/shop/NachtRaveRetroWerks)  
+[Original UltraStarFox Repository](https://github.com/Sunlitspace542/ultrastarfox)  
 [Star Fox Sound Binary Disassemblies](https://github.com/Sunlitspace542/star-fox-sound-bins)  
 [Star Fox Sound Driver Disassembly](https://github.com/phonymike/starfox_spc_driver)  
 [FastFX Blender Plugin](https://github.com/Sunlitspace542/FastFX)  
@@ -119,12 +126,12 @@ All changes to be submitted should be made to the [main](https://github.com/Sunl
 
 ## TODO
 
-1. Optimize game where possible (We already have FastROM and 21Mhz SuperFX 2, can we go any further?)  
-2. Annotate and document code (not so sure about doing this anymore)  
+1. Optimize game where possible (with the 26–28 MHz Super FX overclock target, can we go any further?)
+2. Annotate and document code (not so sure about doing this anymore)
 
 ## Project Structure
 
-```
+```text
 ultrastarfox
 ├── BIN: exe files needed to assemble game code
 ├── optionalstuff: optional graphics files

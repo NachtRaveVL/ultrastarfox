@@ -703,9 +703,9 @@ send_message_l
 	stx	friends_msg
 
 	IFNE	MSUVOICE
-	lda	#100*3	; comm window lifetime in video frames
+	lda	#100*3 ; comm window lifetime in video frames
 	ELSEIF
-	lda	#50*3	; comm window lifetime in video frames
+	lda	#50*3 ; comm window lifetime in video frames
 	ENDC
 	sta	msg_count1
 	stz	msg_count2
@@ -754,21 +754,18 @@ friends_messages_l
 	adc	x1
 .doit
 	jsr	.displayface
-; msg_count1 is stored in video-frame units.
-; Consume the elapsed interval so the comms window lasts
-; the same time at every update rate.
+
+; msg_count1 is stored in video-frame units. Consume the elapsed
+; interval so the comms window lasts the same time at every update rate.
 	lda	msg_count1
 	sec
 	sbc	framer
 	bcs	.stillopen
-
 	stz	msg_count1
 	trigse	$64
 	bra	.nosound
-
 .stillopen
 	sta	msg_count1
-
 .nosound
 
 ; shadow

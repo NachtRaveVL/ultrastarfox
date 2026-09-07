@@ -3268,6 +3268,7 @@ setobjtobechildxy_srou
 	ply
 	rtl
 
+
 sr_addplayerZx
 	a16
 	lda	pviewvelz
@@ -3277,7 +3278,6 @@ sr_addplayerZx
 	sta	al_worldz,x
 	a8
 	rtl
-
 sr_addplayerZy
 	a16
 	lda	pviewvelz
