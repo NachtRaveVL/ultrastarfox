@@ -429,16 +429,19 @@ ship3a_strat
 	s_achase_alvar.w	W,y,al_worldy,#space_viewCY,3
 	s_achase_alvar.w	W,y,al_worldx,#0,4
 	a16
-	lda	al_worldx,y
+	stx	tpx
+	tyx
+	lda	al_worldx,x
 	cmp	#64
 	bpl	.ship3_wait
 	cmp	#-64
 	bmi	.ship3_wait
-	lda	al_worldy,y
+	lda	al_worldy,x
 	cmp	#space_viewCY+64
 	bpl	.ship3_wait
 	cmp	#space_viewCY-64
 	bmi	.ship3_wait
+	ldx	tpx
 	a8
 	s_set_alsflag		x,colldisable
 	s_and_var		B,pshipflags,#~psf_noctrl
@@ -447,6 +450,8 @@ ship3a_strat
 	s_set_strat		x,ship3b_strat
 	s_brl			ship3b_strat
 .ship3_wait
+	a16
+	ldx	tpx
 	a8
 	bra		ship3_cont
 
