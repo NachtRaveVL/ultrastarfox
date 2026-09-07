@@ -12,7 +12,7 @@ NOLODS	equ	0
 ; replaces the player's ship, teammates' ships, and the scramble sequence
 ; ship models with a custom high poly model based on my_demo.
 ; [0 = off, 1 = on]
-hipolyarwing	equ	0
+hipolyarwing	equ	1
 
 ; Title screen logo to use
 ; 0 = Star Fox JP
