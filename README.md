@@ -2,9 +2,11 @@
 
 Star Fox / Starwing source code, modified for ease-of-use and ROMhacking.
 
-> **NR-RetroWorks fork notice:** This repository is a fork of the original [UltraStarFox project](https://github.com/Sunlitspace542/ultrastarfox), maintained by NachtRaveVL for use with the **26–28 MHz Super FX overclocking chip** sold through [NR-RetroWorks on Etsy](https://www.etsy.com/shop/NachtRaveRetroWerks). This fork is intended for real Star Fox / Starwing cartridge builds using that overclocking hardware, while the upstream repository remains the general-purpose source project.
+> **NR-RetroWorks fork notice:** This repository is a fork of the original [UltraStarFox project](https://github.com/Sunlitspace542/ultrastarfox), maintained by NachtRaveVL for use with the **26–28 MHz Super FX overclocking PCB** sold through [NR-RetroWorks on Etsy](https://www.etsy.com/shop/NachtRaveRetroWerks). This fork is intended for real Star Fox / Starwing cartridge builds using that overclocking hardware, while the upstream repository remains the general-purpose source project.
 >
-> The **26–28 MHz operating frequency is provided by the physical overclocking hardware**. The ROM configuration keeps the GSU clock divider disabled and enables Super FX fast multiplication mode (MS1) through `fast equ 1`.
+> Two folders are presented: 2MB Folderized version, which contains the modern folderized & kando-team updated code (meant mostly for emulators with a 126%-128% SuperFX overclock), and 1MB Original version, which contains the more original non-folderized code (meant for actual GSU-1 hardware).
+>
+> The **26–28 MHz operating frequency is provided by an external crystal oscillator that is hard wired into the SuperFX chip's clock input pin, circumventing the original 21.4MHz oscillator**. The ROM configuration keeps the GSU clock divider disabled and enables Super FX fast multiplication mode (MS1).
 
 Go [here](#building) to jump straight to the building instructions.
 
