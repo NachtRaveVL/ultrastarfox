@@ -120,6 +120,9 @@ planetdmapos2	dw	100
 	extern	bgf1pcr	; stored in bank 7 to leave room for timing routines
 	incfile	cont.asm
 	minfo	cont
+	public	MYDEMO_R_P,MYDEMO_R_F
+Do_HDR	=	0
+	incfile	arwing2.asm
 	bankend	31
 
 ; Materialize the final byte so the linker emits exactly 8 Mbit.

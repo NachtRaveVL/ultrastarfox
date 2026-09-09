@@ -4468,7 +4468,7 @@ cockpit_EBSP
 
 
 	ifne	DO_HDR
-my_up	ShapeHdr	myship_4_P,0,myship_4_F,0,100,0,0,5,0,0,0,100,0,id_0_c,0,0,0,0,<myship_4>
+; my_up is supplied by ARWING0.ASM.
 	endc
 
 	IFEQ	1
@@ -4763,10 +4763,14 @@ cockship_EBSP
 
 ;--Shape file ----- C:\SHED\NSHAPES\myzoom_b.txt ----
 	ifne	DO_HDR
+	IFND	hdrpublics
 
 myzoom_b
-	ShapeHdr	myzoom_b_P,0,myzoom_b_F,0,-80,0,0,4,0,20,14,80,80,id_0_c,0,0,0,0,<myzoom_b>
+	ShapeHdr	MYDEMO_b_P,0,MYDEMO_b_F,0,-80,0,0,4,0,20,14,80,80,id_0_c,0,0,0,0,<myzoom_b>
+	ENDC
+; Geometry supplied by ARWING0..7.ASM; the old mesh is omitted to fit 1 MB.
 	elseif
+	IFEQ	1	; Retain the original mesh as source reference only.
 myzoom_b_P
 	Pointsb	4
 	pb	0,0,-2	;0
@@ -4854,6 +4858,7 @@ myzoom_b_f12	Faces
 myzoom_b_EBSP
 	EndShape
 
+	ENDC
 	endc
 
 
@@ -4861,10 +4866,14 @@ myzoom_b_EBSP
 
 ;--Shape file ----- C:\SHED\NSHAPES\myzoom_l.txt ----
 	ifne	DO_HDR
+	IFND	hdrpublics
 
 myzoom_l
-	ShapeHdr	myzoom_l_P,0,myzoom_l_F,0,-80,0,0,4,0,36,14,80,80,id_0_c,0,0,0,0,<myzoom_l>
+	ShapeHdr	MYDEMO_l_P,0,MYDEMO_l_F,0,-80,0,0,4,0,36,14,80,80,id_0_c,0,0,0,0,<myzoom_l>
+	ENDC
+; Geometry supplied by ARWING0..7.ASM; the old mesh is omitted to fit 1 MB.
 	elseif
+	IFEQ	1	; Retain the original mesh as source reference only.
 myzoom_l_P
 	Pointsb	6
 	pb	-36,14,-40	;0
@@ -4953,14 +4962,19 @@ myzoom_l_f12	Faces
 myzoom_l_EBSP
 	EndShape
 
+	ENDC
 	endc
 
 ;--Shape file ----- C:\SHED\NSHAPES\myzoom_r.txt ----
 	ifne	DO_HDR
+	IFND	hdrpublics
 
 myzoom_r
-	ShapeHdr	myzoom_r_P,0,myzoom_r_F,0,-80,0,0,4,0,36,14,80,80,id_0_c,0,0,0,0,<myzoom_r>
+	ShapeHdr	MYDEMO_r_P,0,MYDEMO_r_F,0,-80,0,0,4,0,36,14,80,80,id_0_c,0,0,0,0,<myzoom_r>
+	ENDC
+; Geometry supplied by ARWING0..7.ASM; the old mesh is omitted to fit 1 MB.
 	elseif
+	IFEQ	1	; Retain the original mesh as source reference only.
 myzoom_r_P
 	Pointsb	6
 	pb	36,14,-40	;0
@@ -5049,6 +5063,7 @@ myzoom_r_f12	Faces
 myzoom_r_EBSP
 	EndShape
 
+	ENDC
 	endc
 
 

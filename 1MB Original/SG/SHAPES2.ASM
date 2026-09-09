@@ -3500,10 +3500,14 @@ zaco_8p_f1	Faces
 
 ;--Shape file ----- C:\SHED\SHAPES\MY_W.TXT ----
 	ifne	DO_HDR
+	IFND	hdrpublics
 
 MY_W
-	ShapeHdr	MY_W_P,0,MY_W_F,0,-10,0,0,0,playerB_col,34,14,80,80,id_0_c,0,0,0,0,<MY_W>
+	ShapeHdr	wiremydemo_4_P,0,wiremydemo_4_F,0,-10,0,0,0,playerB_col,34,14,80,80,id_0_c,0,0,0,0,<MY_W>
+	ENDC
+; Geometry supplied by ARWING0..7.ASM; the old mesh is omitted to fit 1 MB.
 	elseif
+	IFEQ	1	; Retain the original mesh as source reference only.
 MY_W_P
 	datahdr
 	Pointsb	3
@@ -3547,14 +3551,19 @@ MY_W_f1	Faces
 	Fend
 	EndShape
 
+	ENDC
 	endc
 
 ;--Shape file ----- C:\SHED\SHAPES\MY_L_W.TXT ----
 	ifne	DO_HDR
+	IFND	hdrpublics
 
 MY_L_W
-	ShapeHdr	MY_L_W_P,0,MY_L_W_F,0,-10,0,0,0,playerB_col,33,16,80,80,id_0_c,0,0,0,0,<MY_L_W>
+	ShapeHdr	wiremydemo_l_P,0,wiremydemo_l_F,0,-10,0,0,0,playerB_col,33,16,80,80,id_0_c,0,0,0,0,<MY_L_W>
+	ENDC
+; Geometry supplied by ARWING0..7.ASM; the old mesh is omitted to fit 1 MB.
 	elseif
+	IFEQ	1	; Retain the original mesh as source reference only.
 my_l_w_P
 	Pointsb	5
 	pb	-34,14,-40	;0
@@ -3595,15 +3604,20 @@ my_l_w_f1	Faces
 	Fend
 	EndShape
 
+	ENDC
 	endc
 
 
 ;--Shape file ----- C:\SHED\SHAPES\MY_R_W.TXT ----
 	ifne	DO_HDR
+	IFND	hdrpublics
 
 MY_R_W
-	ShapeHdr	MY_R_W_P,0,MY_R_W_F,0,-10,0,0,0,playerB_col,33,16,80,80,id_0_c,0,0,0,0,<MY_R_W>
+	ShapeHdr	wiremydemo_r_P,0,wiremydemo_r_F,0,-10,0,0,0,playerB_col,33,16,80,80,id_0_c,0,0,0,0,<MY_R_W>
+	ENDC
+; Geometry supplied by ARWING0..7.ASM; the old mesh is omitted to fit 1 MB.
 	elseif
+	IFEQ	1	; Retain the original mesh as source reference only.
 my_r_w_P
 	Pointsb	5
 	pb	34,14,-40	;0
@@ -3644,16 +3658,21 @@ my_r_w_f1	Faces
 	Fend
 	EndShape
 
+	ENDC
 	endc
 
 
 
 ;--Shape file ----- C:\SHED\SHAPES\my_b_w.txt ----
 	ifne	DO_HDR
+	IFND	hdrpublics
 
 my_b_w
-	ShapeHdr	my_b_w_P,0,my_b_w_F,0,-10,0,0,0,playerB_col,25,13,80,80,id_0_c,0,0,0,0,<my_b_w>
+	ShapeHdr	wiremydemo_b_P,0,wiremydemo_b_F,0,-10,0,0,0,playerB_col,25,13,80,80,id_0_c,0,0,0,0,<my_b_w>
+	ENDC
+; Geometry supplied by ARWING0..7.ASM; the old mesh is omitted to fit 1 MB.
 	elseif
+	IFEQ	1	; Retain the original mesh as source reference only.
 my_b_w_P
 	Pointsb	3
 	pb	0,0,-10	;0
@@ -3695,6 +3714,7 @@ my_b_w_f1	Faces
 	Fend
 	EndShape
 
+	ENDC
 	endc
 
 ;--Shape file ----- C:\SHED\NSHAPES\DOOR_1.ANM ----

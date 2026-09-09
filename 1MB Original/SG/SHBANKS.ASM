@@ -6,7 +6,7 @@
 	include	colboxes.ext
 	include	coltabs.ext
 
-	INCPUBLICS shbanks.ext
+	public	bgmn,bgmnlen,bgmpcr
 
 do_hdr	=	0
 
@@ -15,23 +15,17 @@ do_hdr	=	0
 	incshapes	shapes.asm	
 	incshapes	kshapes.asm
 
-	IFEQ	PAL
-bgmm	incbinfile	snd\sgbgmm.bin
-	fileslog	snd\psgbgmm.bin
-	ELSEIF
-bgmm	incbinfile	snd\psgbgmm.bin
-	fileslog	snd\sgbgmm.bin
-	ENDC
-
-bgmmlen	equ	*-bgmm
+; High-poly wireframe, left wing variant.
+	incshapes	arwing5.asm
 	bankend	12
 
 ;------------------------------------------------------------------
 	bank	14
 	incshapes	shapes2.asm
-	inccru	bgmpcr,data\m.pcr
-bgm2	incbinfile	snd\sgbgm2.bin
-bgm2len	equ	*-bgm2
+; Keep all three wireframes within bank 14.
+	incshapes	arwing4.asm
+	incshapes	arwing6.asm
+	incshapes	arwing7.asm
 	bankend	14
 
 ;------------------------------------------------------------------
@@ -46,8 +40,9 @@ bgmnlen	equ	*-bgmn
 	bank	16
 	incshapes	shapes4.asm
 
-bgmj	incbinfile	snd\sgbgmj.bin
-bgmjlen	equ	*-bgmj
+	public	bgandccr
+	inccru	bgandccr,data\and.ccr
+	incshapes	arwing0.asm
 	bankend	16
 
 ;------------------------------------------------------------------
@@ -59,10 +54,7 @@ bgmjlen	equ	*-bgmj
 	public	dogccr
 	inccru	dogccr,data\dog.ccr
 
-bgm7	incbinfile	snd\sgbgm7.bin
-bgm7len	equ	*-bgm7
-bgm3	incbinfile	snd\sgbgm3.bin
-bgm3len	equ	*-bgm3
+	inccru	bgmpcr,data\m.pcr
 
 	bankend	17
 

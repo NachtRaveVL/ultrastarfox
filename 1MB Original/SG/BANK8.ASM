@@ -15,10 +15,19 @@
 	incfile	gbstrats.asm
 	incfile	gastrats.asm
 
-	public	bgmd
-	public	bgmdlen
-bgmd	incbinfile	snd\sgbgmd.bin
-bgmdlen	equ	*-bgmd
+; Repacked music leaves the shape banks available for the high-poly Arwing.
+	public	bgmm,bgmmlen,bgmj,bgmjlen
+	IFEQ	PAL
+bgmm	incbinfile	snd\sgbgmm.bin
+	fileslog	snd\psgbgmm.bin
+	ELSEIF
+bgmm	incbinfile	snd\psgbgmm.bin
+	fileslog	snd\sgbgmm.bin
+	ENDC
+
+bgmmlen	equ	*-bgmm
+bgmj	incbinfile	snd\sgbgmj.bin
+bgmjlen	equ	*-bgmj
 
 	bankend	8
 

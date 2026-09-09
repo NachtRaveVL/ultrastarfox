@@ -1,5 +1,7 @@
 
 	include	header.inc
+	include	colboxes.ext
+	include	shmacs.inc
 	include	strathdr.inc
 	include	bgmacs.inc
 
@@ -27,6 +29,9 @@
 	bank	4
 	incfile	paths.asm
 	incfile	d2strats.asm
+	public	MYDEMO_L_P,MYDEMO_L_F
+Do_HDR	=	0
+	incfile	arwing1.asm
 	bankend	4
 ;------------------------------------------------------------------
 

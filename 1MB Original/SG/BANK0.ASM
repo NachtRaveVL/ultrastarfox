@@ -66,6 +66,14 @@ Do_HDR	=	1
 	incfile	shapes4.asm
 	incfile	shapes5.asm
 	incfile	kshapes.asm
+	incfile	arwing0.asm
+	incfile	arwing1.asm
+	incfile	arwing2.asm
+	incfile	arwing3.asm
+	incfile	arwing4.asm
+	incfile	arwing5.asm
+	incfile	arwing6.asm
+	incfile	arwing7.asm
 Do_HDR	=	0
 
 
@@ -91,7 +99,13 @@ break_vn
 abort_vn
 	rti
 
+	public	bgm3,bgm3len
+bgm3	incbinfile	snd\sgbgm3.bin
+bgm3len	equ	*-bgm3
 	bankend	0
+	IFGT	*-$ffc0
+	ERROR	<Bank 0 data overlaps the cartridge header>
+	ENDC
 
 	org	$00ffc0,$7fc0
 

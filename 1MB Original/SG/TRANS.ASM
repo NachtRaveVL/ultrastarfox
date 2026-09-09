@@ -38,9 +38,12 @@
 
 transfer_l
 	a8i16
+	php
+	sei		; IRQ increments framec: capture and clear it atomically.
 	lda	framec
 	sta	framer
 	stz	framec
+	plp
 .notfinished
 	lda	trans_flag
 	bne	.notfinished
@@ -363,6 +366,7 @@ transswap
 dostrats
 	a8i16
  	incw	gameframe
+	jsl	visualclock_l
 
 	lda.l     logicframeacc
     clc
@@ -394,6 +398,104 @@ stratlp	stz	aldead
 	bra	.killed
 .cont	plb
 	rts
+
+; Visual effects use the same three-video-frame reference as movement.
+; Keep fractional time instead of rounding every rendered frame independently.
+visualclock_l
+	php
+	a16
+	phx
+	lda	framer
+	and	#$ff
+	clc
+	adc.l	visualfrac
+	ldx	#0
+.divide
+	cmp	#3
+	bcc	.ready
+	sbc	#3
+	inx
+	bra	.divide
+.ready
+	sta.l	visualfrac
+	txa
+	sta.l	visualticks
+	clc
+	adc.l	visualframe
+	sta.l	visualframe
+	plx
+	plp
+	rtl
+
+viewfloat_tick_l
+	php
+	a16
+	lda.l	visualticks
+	asl	a
+	clc
+	adc	viewfloatptr
+.wrap
+	cmp	#viewfloattab_len
+	bcc	.ready
+	sbc	#viewfloattab_len
+	bra	.wrap
+.ready
+	sta	viewfloatptr
+	plp
+	rtl
+
+rollfloat_tick_l
+	php
+	a16
+	lda	player_Zrotfloatptr
+	and	#$ff
+	clc
+	adc.l	visualticks
+.wrap
+	cmp	#pZrotfloattab_len
+	bcc	.ready
+	sbc	#pZrotfloattab_len
+	bra	.wrap
+.ready
+	a8
+	sta	player_Zrotfloatptr
+	plp
+	rtl
+
+playershake_tick_l
+	php
+	a16
+	phy
+	lda.l	visualticks
+	tay
+	beq	.done
+.step
+	lda			player_zshake
+	nega
+	clc
+	adc			player_zshakeV
+	sta			player_zshakeV
+
+	clc
+	adc			player_zshake
+	sta			player_zshake
+
+
+	lda			player_zshake
+	asra
+	asra
+	nega
+	clc
+	adc			player_Zshake
+	sta			player_Zshake
+
+
+	dey
+	bne	.step
+.done
+	ply
+	plp
+	rtl
 
 ;-----------------------------------------------------------------------
 find_window_pri_l

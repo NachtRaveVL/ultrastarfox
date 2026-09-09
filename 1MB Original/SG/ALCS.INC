@@ -783,6 +783,9 @@ mio_mode	equ	$303a
 	zalc	logicframe,2	; the final two free direct-page bytes
 	xalc	logicframeacc,1
 	xalc	pviewanchorz,2	; rebuilt by viewmove_srou
+	xalc	visualframe,2	; automatic colour animation, one tick per 3 video frames
+	xalc	visualfrac,2	; retained video-frame remainder (0..2)
+	xalc	visualticks,2	; elapsed reference ticks for this strategy update
 
 	IFGT	zmempt-$100
 	fail

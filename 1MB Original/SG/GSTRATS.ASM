@@ -150,13 +150,13 @@ maxpships	=	maxpships+1
 ;-----------------------------------------------------------------------------
 maxpships	=	0
 player_shapes
-	def_playership	myship_4,myship_r,myship_l,myship_b	
-pwireshapes	def_playership	my_w,my_r_w,my_l_w,my_b_w		; 1 
+	def_playership	mydemo_4,mydemo_l,mydemo_r,mydemo_b
+pwireshapes	def_playership	wiremydemo_4,wiremydemo_r,wiremydemo_l,wiremydemo_b		; 1
 pnullshapes	def_playership	nullshape,nullshape,nullshape,nullshape	; 2
 	def_playership	my_up,my_up,my_up,my_up			; 5
 	def_playership	nullshape,nullshape,nullshape,nullshape	; 2
 pblackshapes	def_playership	Bmyship_4,Bmyship_r,Bmyship_l,Bmyship_b
-	def_playership	myzoom_4,myzoom_r,myzoom_l,myzoom_b
+	def_playership	mydemoLG_4,mydemoLG_r,mydemoLG_l,mydemoLG_b
 
 ;*****************************************************************************
 ;--------------------------------------
@@ -588,6 +588,7 @@ init_strats_l
 ; View float
 
 	s_jmpNOT_varAND		B,playerflymode,#pfm_wobble,.nwob2
+	jsl	viewfloat_tick_l
 
 	s_jmpNOT_varAND		B,pshipflags,#psf_brkLwing!psf_brkRwing,.nbrkwing
 	s_set_var2vartab	W,W,W,viewfloatY,viewfloatptr,viewfloattab
@@ -595,9 +596,7 @@ init_strats_l
 .nbrkwing	s_set_var2vartab	W,W,W,viewfloatY,viewfloatptr,viewfloattab,-1
 .vcont
 
-	s_add_var		W,viewfloatptr,#2
-	s_jmp_varNE		W,viewfloatptr,#viewfloattab_len,.vptrok
-	s_set_var		W,viewfloatptr,#0
+; Phase is advanced by viewfloat_tick_l before the table lookup.
 .vptrok
 .nwob2
 

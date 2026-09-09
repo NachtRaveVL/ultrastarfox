@@ -106,14 +106,14 @@ gndLcube_P
 
 ;--Shape file ----- C:\SHED\SHAPES5\MYSHIP_4.TXT ----
 	ifne	DO_HDR
+	IFND	hdrpublics
 
 nullplayer
 	ShapeHdr	0,0,0,0,0,0,0,0,playerB_col,36,14,80,80,id_0_c,0,0,0,0,<myship_4>
-Bmyship_4	ShapeHdr	myship_4_P,0,myship_4_F,0,0,0,0,0,playerB_col,36,14,80,80,black_c,0,0,0,0,<myship_4>
-Imyship_4	ShapeHdr	myship_4_P,0,myship_4_F,0,500,0,0,0,playerB_col,36,14,80,80,id_0_c,0,0,0,0,<myship_4>
-myship_4	ShapeHdr	myship_4_P,0,myship_4_F,0,0,0,0,0,playerB_col,36,14,80,80,id_0_c,0,0,0,0,<myship_4>
-friendship_4	ShapeHdr	myship_4_P,0,myship_4_F,0,0,0,0,0,0,36,14,80,80,id_0_c,0,0,0,0,<myship_4>
+	ENDC
+; Geometry supplied by ARWING0..7.ASM; the old mesh is omitted to fit 1 MB.
 	elseif
+	IFEQ	1	; Retain the original mesh as source reference only.
 myship_4_P
 	Pointsb	4
 	pb	0,0,-10	;0
@@ -197,6 +197,7 @@ myship_4_f10	Faces
 myship_4_EBSP
 	EndShape
 
+	ENDC
 	endc
 
 
@@ -204,10 +205,14 @@ myship_4_EBSP
 
 ;--Shape file ----- C:\SHED\NSHAPES\myship_l.txt ----
 	ifne	DO_HDR
+	IFND	hdrpublics
 
-Bmyship_l	ShapeHdr	myship_l_P,0,myship_l_F,0,0,0,0,0,playerB_col,36,14,80,80,black_c,0,0,0,0,<myship_l>
-myship_l	ShapeHdr	myship_l_P,0,myship_l_F,0,0,0,0,0,playerB_col,36,14,80,80,id_0_c,0,0,0,0,<myship_l>
+Bmyship_l	ShapeHdr	MYDEMO_l_P,0,MYDEMO_l_F,0,0,0,0,0,playerB_col,36,14,80,80,black_c,0,0,0,0,<myship_l>
+myship_l	ShapeHdr	MYDEMO_l_P,0,MYDEMO_l_F,0,0,0,0,0,playerB_col,36,14,80,80,id_0_c,0,0,0,0,<myship_l>
+	ENDC
+; Geometry supplied by ARWING0..7.ASM; the old mesh is omitted to fit 1 MB.
 	elseif
+	IFEQ	1	; Retain the original mesh as source reference only.
 myship_l_P
 	Pointsb	6
 	pb	-36,14,-40	;0
@@ -292,14 +297,19 @@ myship_l_f10	Faces
 myship_l_EBSP
 	EndShape
 
+	ENDC
 	endc
 
 ;--Shape file ----- C:\SHED\NSHAPES\myship_r.txt ----
 	ifne	DO_HDR
+	IFND	hdrpublics
 
-Bmyship_r	ShapeHdr	myship_r_P,0,myship_r_F,0,0,0,0,0,playerB_col,36,14,80,80,black_c,0,0,0,0,<myship_r>
-myship_r	ShapeHdr	myship_r_P,0,myship_r_F,0,0,0,0,0,playerB_col,36,14,80,80,id_0_c,0,0,0,0,<myship_r>
+Bmyship_r	ShapeHdr	MYDEMO_r_P,0,MYDEMO_r_F,0,0,0,0,0,playerB_col,36,14,80,80,black_c,0,0,0,0,<myship_r>
+myship_r	ShapeHdr	MYDEMO_r_P,0,MYDEMO_r_F,0,0,0,0,0,playerB_col,36,14,80,80,id_0_c,0,0,0,0,<myship_r>
+	ENDC
+; Geometry supplied by ARWING0..7.ASM; the old mesh is omitted to fit 1 MB.
 	elseif
+	IFEQ	1	; Retain the original mesh as source reference only.
 myship_r_P
 	Pointsb	6
 	pb	36,14,-40	;0
@@ -384,14 +394,19 @@ myship_r_f10	Faces
 myship_r_EBSP
 	EndShape
 
+	ENDC
 	endc
 
 ;--Shape file ----- C:\SHED\NSHAPES\myship_b.txt ----
 	ifne	DO_HDR
+	IFND	hdrpublics
 
-Bmyship_b	ShapeHdr	myship_b_P,0,myship_b_F,0,0,0,0,0,playerB_col,20,14,80,80,black_c,0,0,0,0,<myship_b>
-myship_b	ShapeHdr	myship_b_P,0,myship_b_F,0,0,0,0,0,playerB_col,20,14,80,80,id_0_c,0,0,0,0,<myship_b>
+Bmyship_b	ShapeHdr	MYDEMO_b_P,0,MYDEMO_b_F,0,0,0,0,0,playerB_col,20,14,80,80,black_c,0,0,0,0,<myship_b>
+myship_b	ShapeHdr	MYDEMO_b_P,0,MYDEMO_b_F,0,0,0,0,0,playerB_col,20,14,80,80,id_0_c,0,0,0,0,<myship_b>
+	ENDC
+; Geometry supplied by ARWING0..7.ASM; the old mesh is omitted to fit 1 MB.
 	elseif
+	IFEQ	1	; Retain the original mesh as source reference only.
 myship_b_P
 	Pointsb	4
 	pb	0,0,-10	;0
@@ -475,6 +490,7 @@ myship_b_f10	Faces
 myship_b_EBSP
 	EndShape
 
+	ENDC
 	endc
 
 

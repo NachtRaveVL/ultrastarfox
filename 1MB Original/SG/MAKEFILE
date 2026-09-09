@@ -1,3 +1,4 @@
+ARWINGFILES= ARWING0.ASM ARWING1.ASM ARWING2.ASM ARWING3.ASM ARWING4.ASM ARWING5.ASM ARWING6.ASM ARWING7.ASM
 
 STDFILES= HEADER.INC MACROS.INC VARS.INC SOUNDEQU.INC STRUCTS.INC ALCS.INC \
  GILESALX.INC GILESALC.INC GILESAL.INC KALCS.INC DALCS.INC
@@ -30,7 +31,7 @@ info: $(ALLFILES)
 	@$(LINK) $(LOPTS) -l1024 @flist
 
 ## Bank 0
-bank0.sob: bank0.asm $(STRATFILES) \
+bank0.sob: bank0.asm snd\sgbgm3.bin $(ARWINGFILES) $(STRATFILES) \
 $(STDFILES) blink.asm data\etabs.dat sgtabs.asm \
 data\nintendo.pal data\map-obj.cgx sgdata.asm data\arctan.asm \
 istrats.asm ushapes.asm shapes.asm shapes2.asm \
@@ -38,7 +39,7 @@ shapes3.asm pshapes.asm shapes4.asm shapes5.asm \
 kshapes.asm d3strats.asm 
 
 ## Bank 1
-bank1.sob: bank1.asm shmacs.inc gamemsgs.inc \
+bank1.sob: bank1.asm arwing3.asm stratequ.inc shmacs.inc gamemsgs.inc \
 $(STDFILES) mvars.mc mmacs.mc mshtab.mc \
 mmaths.mc mwrot.mc mwcrot.mc mobj.mc \
 mclip.mc mdrawc.mc mdrawp.mc msprite.mc \
@@ -48,7 +49,7 @@ mbumwipe.mc mhud.mc data\moji_0.fon data\moji_0.trn \
 data\moji_d.fon data\moji_d.trn gametext.asm fontdata.asm \
 
 ## Bank 2, 3
-bank2.sob: bank2.asm bgmacs.inc\
+bank2.sob: bank2.asm arwing2.asm bgmacs.inc\
 $(STDFILES) irq.asm hdmatabs.asm colboxes.asm \
 coldet.asm ramstuff.asm trans.asm data\gfx\mist.col \
 data\gfx\bg2-c.col data\gfx\bg2-c.col data\gfx\over_d.col main.asm \
@@ -61,13 +62,13 @@ debug.asm bootnmi.asm stratrou.asm nmi.asm \
 draw.asm endseq.asm data\f-1.pcr cont.asm \
 
 ## Bank 4
-bank4.sob: bank4.asm \
+bank4.sob: bank4.asm arwing1.asm colboxes.ext coltabs.ext \
 $(STDFILES) $(STRATFILES) pathmacs.asm maps\pathdata.asm \
 maps\epathdat.asm maps\dpathdat.asm maps\kpathdat.asm paths.asm \
 d2strats.asm 
 
 ## Bank 5, bank 13
-bank5.sob: bank5.asm mapmacs.inc istrats.asm data\ti-3-us.ccr data\ti-3.ccr \
+bank5.sob: bank5.asm snd\sgbgmd.bin mapmacs.inc istrats.asm data\ti-3-us.ccr data\ti-3.ccr \
 $(STDFILES) maps\map2_3a.asm maps\map2_3b.asm maps\airlock1.asm \
 maps\map2_3c.asm maps\map2_4.asm maps\castanet.asm maps\map2_5.asm \
 maps\trucker.asm maps\map2_6a.asm maps\map2_6b.asm maps\map2_6c.asm \
@@ -111,7 +112,7 @@ bank7.sob: bank7.asm data\f-1.pcr \
 $(STDFILES) $(STRATFILES) gistrats.asm gb3strats.asm \
 
 ## Bank 8
-bank8.sob: bank8.asm \
+bank8.sob: bank8.asm snd\sgbgmm.bin snd\psgbgmm.bin snd\sgbgmj.bin \
 $(STDFILES) $(STRATFILES) gbstrats.asm gastrats.asm \
 snd\sgbgmd.bin 
 
@@ -131,7 +132,7 @@ $(STDFILES) $(STRATFILES) pistrats.asm pcstrats.asm \
 pstrats.asm gb2strats.asm 
 
 ## Banks 12, 13, 14, 15, 16, 17
-shbanks.sob: shbanks.asm shmacs.inc stratequ.inc \
+shbanks.sob: shbanks.asm data\and.ccr $(ARWINGFILES) shmacs.inc stratequ.inc \
 $(STDFILES) shapes.asm shapes.asm kshapes.asm \
 kshapes.asm snd\sgbgmm.bin snd\psgbgmm.bin shapes2.asm \
 shapes2.asm data\m.pcr snd\sgbgm2.bin shapes3.asm \
@@ -141,7 +142,7 @@ ushapes.asm pshapes.asm pshapes.asm data\dog.ccr \
 snd\sgbgm7.bin snd\sgbgm3.bin 
 
 ## Banks 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31
-incbins.sob: incbins.asm \
+incbins.sob: incbins.asm snd\sgbgm2.bin shmacs.inc stratequ.inc colboxes.ext coltabs.ext snd\sgbgm7.bin \
 $(STDFILES) msprites\sprites3.dat msprites\sprites4.dat msprites\spritesg.dat \
 data\moji_2.fon mdata.mc data\demo.ccr data\demo.pcr \
 data\hole-a.ccr data\b.ccr data\b.pcr data\obj-1.ccr \

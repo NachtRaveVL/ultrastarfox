@@ -54,6 +54,10 @@ oopspal	;incbin	data\oops.pal
 oopschr	;incbin	data\oops.chr
 oopspic	;incbin	data\oops.pic
 
+; Use the smaller solid mesh here; music lives after the sound data.
+	public	MYDEMO_B_P,MYDEMO_B_F
+Do_HDR	=	0
+	incfile	arwing3.asm
 	bankend	1
 
 

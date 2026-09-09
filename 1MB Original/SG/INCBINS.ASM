@@ -1,5 +1,9 @@
 
 	include	header.inc
+	include	stratequ.inc
+	include	shmacs.inc
+	include	colboxes.ext
+	include	coltabs.ext
 
 	incpublics	incbins.ext
 
@@ -218,6 +222,9 @@ facedata	inccolfile	data\face.cgx,0,360
 
 	inccru	bgmccr,data\m.ccr
 
+	public	bgm7,bgm7len
+bgm7	incbinfile	snd\sgbgm7.bin
+bgm7len	equ	*-bgm7
 	bankend	23
 
 ;------------------------------------------------------------------
@@ -293,6 +300,14 @@ musicsize	=	0
 	inccru	obj2ccr,data\obj-3.ccr
 	fileslog data\obj-2.ccr
 	endc
+
+; Use the gap after sound data, before BANK2.ASM's bank 31 routines.
+	public	bgm2,bgm2len
+bgm2	incbinfile	snd\sgbgm2.bin
+bgm2len	equ	*-bgm2
+	IFGT	*-$1fbdb0
+	ERROR	<Sound data overlaps bank 31 routines>
+	ENDC
 
 	printf	:$*,"%n"
 

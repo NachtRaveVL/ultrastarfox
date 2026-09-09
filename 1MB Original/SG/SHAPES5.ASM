@@ -41,10 +41,14 @@ bu_2_f1	Faces
 
 ;--Shape file ----- C:\SHED\NSHAPES\myzoom_4.txt ----
 	ifne	DO_HDR
+	IFND	hdrpublics
 
 myzoom_4
-	ShapeHdr	myzoom_4_P,0,myzoom_4_F,0,-80,0,0,4,0,36,14,80,80,id_0_c,0,0,0,0,<myzoom_4>
+	ShapeHdr	MYDEMO_4_P,0,MYDEMO_4_F,0,-80,0,0,4,0,36,14,80,80,id_0_c,0,0,0,0,<myzoom_4>
+	ENDC
+; Geometry supplied by ARWING0.ASM.
 	elseif
+	IFEQ	1	; Retain the original mesh as source reference only.
 myzoom_4_P
 	Pointsb	4
 	pb	0,0,-2	;0
@@ -132,6 +136,7 @@ myzoom_4_f12	Faces
 myzoom_4_EBSP
 	EndShape
 
+	ENDC
 	endc
 
 

@@ -49,8 +49,9 @@ real_istrats =	0
 	bank	5
 	incfile	maps\maplist.asm
 
-	public	bgandccr
-	inccru	bgandccr,data\and.ccr
+	public	bgmd,bgmdlen
+bgmd	incbinfile	snd\sgbgmd.bin
+bgmdlen	equ	*-bgmd
 
 
 	bankend	5
