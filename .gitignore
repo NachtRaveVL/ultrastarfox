@@ -49,8 +49,8 @@
 */.vscode/*
 
 # Files generated during assembly
-*.CCR
-*.PCR
+/2MB\ Folderized/**/*.CCR
+/2MB\ Folderized/**/*.PCR
 SF/DATA/COL/*.PAC
 SF/DATA/COL/ALLCOLS.COL
 
