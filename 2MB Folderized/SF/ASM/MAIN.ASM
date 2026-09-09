@@ -2230,7 +2230,7 @@ marioshowview
 
 	lda.w	al_colframe,y
 	bmi	.standardframe2
-	lda	gameframe
+	lda.l	visualframe	; elapsed-time phase for automatic engine/enemy colours
 .standardframe2
 	and	#127
 	sta.l	dl_colframe,x
@@ -2704,7 +2704,7 @@ walktree
 	lda.l	alx_colframe,x
 	bit	#128
 	bne	.standardframe2
-	lda	gameframe
+	lda.l	visualframe	; automatic colours follow elapsed time; scripted frames stay explicit
 .standardframe2
 	sta	colframe
 

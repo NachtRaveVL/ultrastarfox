@@ -789,6 +789,11 @@ msu_orch	equ	1
 	include	INC\dalcs.inc
 	include	INC\ealcs.inc
 
+; Append visual timing state without moving existing allocations.
+	xalc	visualframe,2	; automatic colour animation, one tick per 3 video frames
+	xalc	visualfrac,2	; retained video-frame remainder (0..2)
+	xalc	visualticks,2	; elapsed reference ticks for this strategy update
+
 	IFGT	wmempt-$2000
 	printf	"%n%nTOO MANY ALCS USED%n%n"
 	fail

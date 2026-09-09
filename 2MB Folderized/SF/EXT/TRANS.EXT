@@ -11,5 +11,4 @@
 	global	mwipefill_circle
 
 	global	find_window_pri_l
-
-
+	global	visualclock_l,viewfloat_tick_l,rollfloat_tick_l,playershake_tick_l

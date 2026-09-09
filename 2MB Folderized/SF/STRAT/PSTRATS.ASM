@@ -1752,6 +1752,7 @@ playermove_init
 	s_set_var		W,player_turnrot,#0
 	s_set_var		B,player_ztilt,#0
 	s_set_var		W,player_zshake,#0
+	s_set_var		W,player_zshakeV,#0	; clear the spring velocity on a fresh ship
 	s_set_var		B,player_zstratadd,#0
 	s_set_var		B,player_rollZvel,#0
 	s_set_var		B,player_rollZoff,#0
@@ -2737,6 +2738,11 @@ playermove_srou
 				 
 	s_limit_alvar		B,x,al_vel,minPspeed,maxPspeed
 
+	s_test_var		B,pshipflags,#psf_Lwingcoll!psf_Rwingcoll
+	s_bne			.npsc
+	jsl	playershake_tick_l
+.npsc
+
 	s_limit_var		W,plrotz,-$600,$600
 	s_copy_var2alvar	B,x,al_rotx,plrotx+1
 	s_copy_var2alvar	B,x,al_roty,plroty+1
@@ -2765,15 +2771,14 @@ playermove_srou
 ; Zrot float	
 
 	s_jmpNOT_varAND		B,playerflymode,#pfm_wobble,.nwob
+	jsl	rollfloat_tick_l
 	s_jmpNOT_varAND		B,pshipflags,#psf_brkLwing!psf_brkRwing,.nbrkwingzr
 	s_set_var2vartab	B,B,B,player_Zrotfloat,player_Zrotfloatptr,pZrotfloattab
 	s_brl			.vcont
 .nbrkwingzr 	s_set_var2vartab	B,B,B,player_Zrotfloat,player_Zrotfloatptr,pZrotfloattab,-1
 .vcont
 	s_add_alvar		B,x,al_rotz,player_Zrotfloat
-	s_add_var		B,player_Zrotfloatptr,#1
-	s_jmp_varNE		B,player_Zrotfloatptr,#pZrotfloattab_len,.pfzptrok
-	s_set_var		B,player_Zrotfloatptr,#0
+; Phase is advanced by rollfloat_tick_l before the table lookup.
 .pfzptrok
 .nwob
 
@@ -2796,34 +2801,6 @@ playermove_srou
 ;---------------------------------------------------------------
 
 
-	s_test_var		B,pshipflags,#psf_Lwingcoll!psf_Rwingcoll
-	s_bne			.npsc
-	a16
-	lda			player_zshake
-	nega
-	clc
-	adc			player_zshakeV
-	sta			player_zshakeV
-	
-	clc
-	adc			player_zshake
-	sta			player_zshake
-
-
-	lda			player_zshake
-	asra
-	asra
-	nega
-	clc
-	adc			player_Zshake
-	sta			player_Zshake	
-
-
-	a8
-
-
-
-.npsc
 
 ; ## ALL-RANGE MODE ##
 	IFNE	ALLRANGE

@@ -609,6 +609,7 @@ init_strats_l
 ; View float
 
 	s_jmpNOT_varAND		B,playerflymode,#pfm_wobble,.nwob2
+	jsl	viewfloat_tick_l
 
 	s_jmpNOT_varAND		B,pshipflags,#psf_brkLwing!psf_brkRwing,.nbrkwing
 	s_set_var2vartab	W,W,W,viewfloatY,viewfloatptr,viewfloattab
@@ -616,9 +617,7 @@ init_strats_l
 .nbrkwing	s_set_var2vartab	W,W,W,viewfloatY,viewfloatptr,viewfloattab,-1
 .vcont
 
-	s_add_var		W,viewfloatptr,#2
-	s_jmp_varNE		W,viewfloatptr,#viewfloattab_len,.vptrok
-	s_set_var		W,viewfloatptr,#0
+; Phase is advanced by viewfloat_tick_l before the table lookup.
 .vptrok
 .nwob2
 
