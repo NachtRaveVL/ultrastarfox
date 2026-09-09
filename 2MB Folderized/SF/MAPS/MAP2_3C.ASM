@@ -1,0 +1,18 @@
+; 2-3 Titania Part C
+map2_3c
+	setrestart
+	mapobj	0000,0000,-060,3000,boss_g_0,bossg_istrat
+	start_65816
+	trigse	$0b
+	end_65816
+	mapwait	1
+	setbgm	5
+	IFNE	MSU1
+	mapmsuplay	boss2_3,repeat
+	ENDC
+	mapwait	5000
+airlock_pos	=	4000
+	incmap	airlock1
+	maprts
+
+
